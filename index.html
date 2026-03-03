@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NailKit · affiliate for nail kits</title>
+    <title>Gloss & Co. · nail kits for pinterest</title>
     <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -11,250 +11,270 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
-            background: #faf4f2;
-            color: #34221a;
+            background: #fff9f7;
+            color: #3b2b23;
             line-height: 1.5;
             scroll-behavior: smooth;
         }
 
-        /* soft gradient animation */
-        @keyframes pastelShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* soft pastel gradient animation */
+        @keyframes softDrift {
+            0% { background-position: 0% 30%; }
+            50% { background-position: 100% 70%; }
+            100% { background-position: 0% 30%; }
         }
 
-        /* navigation */
+        /* navigation with glassmorphism */
         .navbar {
-            background: #ffffffdd;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 4px 14px rgba(163, 94, 94, 0.05);
-            padding: 1rem 2rem;
+            background: rgba(255, 245, 240, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 24px rgba(231, 160, 130, 0.15);
+            padding: 0.9rem 2.5rem;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 50;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #ffdbce;
+            border-bottom: 1px solid #ffdad2;
         }
 
         .logo {
-            font-size: 1.9rem;
+            font-size: 2rem;
             font-weight: 600;
-            color: #bd5a3c;
+            background: linear-gradient(145deg, #c06a4b, #b24e2e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
         }
         .logo i {
-            color: #d87358;
-            margin-right: 6px;
-            animation: shine 4s infinite ease-in-out;
+            background: none;
+            -webkit-text-fill-color: #d6653f;
+            margin-right: 8px;
+            font-size: 2rem;
+            animation: sparkle 3s infinite;
         }
-        @keyframes shine {
+        @keyframes sparkle {
             0%,100%{ transform: scale(1) rotate(0); }
-            30%{ transform: scale(1.1) rotate(8deg); color: #f0977a; }
+            30%{ transform: scale(1.1) rotate(6deg); color: #f19679; }
         }
 
         .nav-links {
             display: flex;
-            gap: 2.2rem;
+            gap: 2.5rem;
         }
         .nav-links a {
             text-decoration: none;
             font-weight: 500;
-            color: #563f35;
+            color: #523f36;
             transition: 0.2s;
             font-size: 1.1rem;
-            padding-bottom: 4px;
+            padding-bottom: 5px;
             border-bottom: 2px solid transparent;
         }
         .nav-links a:hover, .nav-links a.active {
-            border-bottom-color: #e49b82;
+            border-bottom-color: #eaa68b;
             color: #ac4a2b;
         }
 
         /* container */
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem 2rem 4rem;
+            padding: 2rem 2.5rem 4rem;
         }
 
-        /* page header */
+        /* dreamy page header */
         .page-header {
-            margin: 1.5rem 0 2.5rem;
+            margin: 1rem 0 2.8rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.2rem;
         }
         .page-header h1 {
-            font-size: 2.5rem;
-            font-weight: 350;
-            color: #633f30;
-            border-left: 7px solid #f7b79e;
+            font-size: 2.8rem;
+            font-weight: 400;
+            background: linear-gradient(130deg, #744434, #b15533);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-left: 6px solid #f9bc9c;
             padding-left: 1.5rem;
         }
         .page-header i {
-            font-size: 2.8rem;
-            color: #d47b5c;
-            opacity: 0.9;
+            font-size: 3rem;
+            color: #dd8467;
+            filter: drop-shadow(2px 4px 8px rgba(219, 126, 78, 0.3));
         }
 
-        /* product cards grid */
+        /* product cards grid — pinterest style */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2rem 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 2.2rem 1.8rem;
             margin-top: 2rem;
         }
 
-        /* card animation */
+        /* card — soft rounded, floating */
         .product-card {
             background: white;
-            border-radius: 30px 30px 26px 26px;
-            padding: 2rem 1.5rem 1.8rem;
-            box-shadow: 0 18px 30px -12px rgba(168, 88, 48, 0.15);
-            transition: all 0.25s ease;
-            border: 1px solid #ffe2d4;
+            border-radius: 32px 32px 28px 28px;
+            padding: 2.2rem 1.5rem 2rem;
+            box-shadow: 0 20px 35px -8px rgba(186, 104, 72, 0.12);
+            transition: all 0.3s cubic-bezier(0.15, 0.75, 0.45, 1);
+            border: 1px solid #ffe5db;
             text-align: center;
-            opacity: 0; /* animated by IntersectionObserver */
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+            opacity: 0; /* animated */
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.2s, border 0.2s;
             display: flex;
             flex-direction: column;
+            backdrop-filter: blur(4px);
         }
         .product-card.reveal {
             opacity: 1;
             transform: translateY(0);
         }
         .product-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 28px 42px -12px #d49c82;
-            border-color: #fccbb7;
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 32px 50px -16px #cc9b82;
+            border-color: #fcd5c0;
         }
 
+        /* icon placeholder with soft gradient */
         .product-card i.img-placeholder {
             font-size: 4rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.4rem;
             color: #b75533;
-            background: #fee7de;
-            width: 100px;
-            height: 100px;
-            line-height: 100px !important;
+            background: linear-gradient(145deg, #ffede5, #ffdbcd);
+            width: 120px;
+            height: 120px;
+            line-height: 120px !important;
             border-radius: 50%;
             align-self: center;
-            box-shadow: 0 8px 14px #f2cfbe;
-            transition: 0.2s;
+            box-shadow: 0 12px 22px #f2cfbe;
+            transition: 0.25s;
         }
         .product-card:hover i.img-placeholder {
-            background: #ffe1d1;
+            background: linear-gradient(145deg, #ffe3d6, #ffccb7);
             color: #aa3f1c;
-            transform: scale(1.03);
+            transform: scale(1.02) rotate(2deg);
         }
 
         .product-title {
             font-weight: 700;
-            font-size: 1.45rem;
-            color: #3e251c;
-            margin-bottom: 0.3rem;
+            font-size: 1.55rem;
+            color: #482f24;
+            margin-bottom: 0.2rem;
         }
         .product-desc {
-            font-size: 0.95rem;
-            color: #795d4d;
-            margin: 0.6rem 0 0.8rem;
+            font-size: 0.98rem;
+            color: #826655;
+            margin: 0.7rem 0 0.9rem;
             flex: 1;
+            padding: 0 0.4rem;
         }
         .price {
             font-weight: 700;
-            font-size: 1.5rem;
-            color: #b9502b;
-            margin: 0.6rem 0;
+            font-size: 1.7rem;
+            color: #c25933;
+            margin: 0.5rem 0;
         }
         .price small {
             font-size: 0.9rem;
             font-weight: 400;
-            color: #a28372;
+            color: #a3816f;
         }
+
+        /* pretty affiliate button */
         .affiliate-btn {
-            background: #fae2d4;
+            background: #fbeee8;
             border: none;
-            border-radius: 50px;
-            padding: 0.9rem 1.5rem;
-            margin-top: 1rem;
+            border-radius: 60px;
+            padding: 1rem 1.8rem;
+            margin-top: 1.2rem;
             font-weight: 600;
-            color: #6f3d27;
-            cursor: pointer;
-            transition: 0.2s;
+            color: #773d26;
+            transition: 0.25s;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            border: 1px solid #f1c2ab;
+            gap: 10px;
+            border: 1px solid #f5c5ae;
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 1.05rem;
+            letter-spacing: 0.3px;
         }
         .affiliate-btn i {
-            transition: transform 0.2s;
+            transition: transform 0.25s ease;
         }
         .affiliate-btn:hover {
-            background: #f3cfbb;
-            gap: 12px;
-            border-color: #df9f81;
+            background: #f7ddd0;
+            gap: 16px;
+            border-color: #e09f81;
+            box-shadow: 0 8px 14px #f0c7b2;
         }
         .affiliate-btn:hover i {
-            transform: translateX(5px);
+            transform: translateX(7px);
         }
 
-        /* about & contact cards */
+        /* about & contact cards (elegant) */
         .about-card, .contact-card {
-            background: white;
-            border-radius: 40px;
-            padding: 3rem;
-            box-shadow: 0 25px 40px -20px #b48267;
-            border: 1px solid #ffddcb;
-            max-width: 800px;
-            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 56px;
+            padding: 3.5rem 3rem;
+            box-shadow: 0 40px 60px -24px #bc8b78;
+            border: 1px solid #ffd9ca;
+            max-width: 850px;
+            margin: 2.5rem auto;
             text-align: center;
             transition: 0.3s;
         }
         .about-card i, .contact-card i {
-            font-size: 4rem;
-            color: #d sixteenth 5742;
+            font-size: 4.8rem;
+            color: #c fifteenth 674d;
             margin-bottom: 1.5rem;
+            filter: drop-shadow(0 6px 8px #e6b4a0);
         }
         .about-card h2, .contact-card h2 {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             font-weight: 350;
-            color: #472e23;
+            color: #4f3428;
+            margin-bottom: 1.5rem;
         }
         .about-card p {
             font-size: 1.2rem;
-            color: #5b4033;
-            margin: 2rem 0;
+            color: #634d40;
+            margin: 1.8rem 0;
         }
         .contact-card .social-links a {
-            font-size: 2.8rem;
-            margin: 0 1.2rem;
-            color: #c sixteen 774d;
-            transition: 0.2s;
+            font-size: 3.2rem;
+            margin: 0 1.5rem;
+            color: #c sixteenth 774d;
+            transition: 0.25s;
             display: inline-block;
         }
         .social-links a:hover {
-            transform: scale(1.25) rotate(2deg);
-            color: #a3411b;
+            transform: scale(1.3) rotate(3deg);
+            color: #aa401b;
         }
 
+        /* footer */
         footer {
-            background: #2f1f18;
-            color: #ebd7cc;
+            background: #2f201b;
+            color: #eedbd2;
             padding: 2rem;
             text-align: center;
             margin-top: 4rem;
+            border-top-left-radius: 48px;
+            border-top-right-radius: 48px;
         }
 
         /* page visibility */
@@ -265,76 +285,95 @@
             display: block;
         }
 
+        /* responsive touches */
         @media (max-width: 700px) {
-            .navbar { flex-direction: column; gap: 0.7rem; }
-            .nav-links { gap: 1.2rem; }
+            .navbar { padding: 1rem 1.5rem; }
+            .nav-links { gap: 1.3rem; }
             .page-header h1 { font-size: 2rem; }
+        }
+
+        /* pinterest badge */
+        .pinterest-badge {
+            display: inline-block;
+            background: #e02f2f10;
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            color: #b75836;
+            font-weight: 400;
+            border: 1px dashed #eaa68b;
+            margin-bottom: 2rem;
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
-            <i class="fas fa-hand-sparkles"></i> NailKit
+            <i class="fas fa-hand-sparkles"></i> Gloss & Co.
         </div>
         <div class="nav-links">
             <a href="#" data-page="home" class="nav-item active"><i class="fas fa-home"></i> Home</a>
             <a href="#" data-page="products" class="nav-item"><i class="fas fa-paint-brush"></i> Kits</a>
-            <a href="#" data-page="about" class="nav-item"><i class="fas fa-heart"></i> About</a>
+            <a href="#" data-page="about" class="nav-item"><i class="fas fa-heart"></i> Story</a>
             <a href="#" data-page="contact" class="nav-item"><i class="fas fa-envelope"></i> Contact</a>
         </div>
     </nav>
 
     <div class="container">
-        <!-- HOME page -->
+        <!-- HOME page (pinterest style) -->
         <section id="home" class="page active-page">
+            <div class="pinterest-badge">
+                <i class="fab fa-pinterest"></i> pin · save · shop
+            </div>
             <div class="page-header">
                 <i class="fas fa-nail-polish"></i>
-                <h1>top nail kits this month</h1>
+                <h1>curated nail kits, just for you</h1>
             </div>
             <div id="home-product-grid" class="product-grid"></div>
-            <div style="text-align: center; margin-top: 3rem; color: #966b58;">
-                <i class="fas fa-arrow-down"></i> view all in <strong>kits</strong> tab
+            <div style="text-align: center; margin-top: 3rem; color: #9f7764; font-size: 1.2rem;">
+                <i class="fas fa-arrow-down" style="background: #fad7c8; padding: 0.6rem; border-radius: 50%;"></i> explore all <strong>kits</strong> tab
             </div>
         </section>
 
         <!-- PRODUCTS page (all nail kits) -->
         <section id="products" class="page">
+            <div class="pinterest-badge">
+                <i class="fab fa-pinterest"></i> 20+ kits · updated weekly
+            </div>
             <div class="page-header">
                 <i class="fas fa-crown"></i>
-                <h1>all nail essential kits</h1>
+                <h1>complete nail kit collection</h1>
             </div>
             <div id="products-product-grid" class="product-grid"></div>
         </section>
 
-        <!-- ABOUT page -->
+        <!-- ABOUT page (story) -->
         <section id="about" class="page">
             <div class="about-card">
-                <i class="fas fa-spa"></i>
-                <h2>manicure love & affiliate picks</h2>
-                <p>We’re nail enthusiasts who test dip powders, gel lamps, and press‑on kits. Every product you see is something we’d gift a friend. when you buy through us, we may earn a small commission (never affects price).</p>
-                <p>✨ trusted by 10k+ pinners</p>
+                <i class="fas fa-feather"></i>
+                <h2>made for nail lovers & pinners</h2>
+                <p>we’re a tiny duo obsessed with dip, gel, and press‑ons. we test every kit before featuring — then we pin them to our pinterest boards. if you purchase through our affiliate links, we get a small commission (at no cost to you). think of it as supporting our nail art addiction 💅</p>
+                <p style="font-size: 1rem; background: #fff1e9; border-radius: 60px; padding: 0.8rem;"><i class="fas fa-pinterest" style="color:#bd2e2e;"></i>  pinterest: @glossandco · 50k+ monthly views</p>
             </div>
         </section>
 
         <!-- CONTACT page -->
         <section id="contact" class="page">
             <div class="contact-card">
-                <i class="fas fa-message"></i>
-                <h2>let's connect</h2>
-                <p>follow our pinterest boards for daily nail inspo & deals</p>
+                <i class="fas fa-paper-plane"></i>
+                <h2>say hi, let's collab</h2>
+                <p>follow our pinterest boards for daily nail inspo & early deals</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-pinterest"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fas fa-envelope"></i></a>
                 </div>
-                <p style="margin-top: 2rem;">📧 hello@nailkit.blog</p>
+                <p style="margin-top: 2rem;">✨ hello@glossandco.blog</p>
             </div>
         </section>
     </div>
 
     <footer>
-        <i class="fas fa-copyright"></i> NailKit — pinterest affiliate (demo, all products are example arrays)
+        <i class="fas fa-copyright"></i> Gloss & Co. — pinterest affiliate. (demo product arrays, all links example)
     </footer>
 
     <script>
@@ -342,60 +381,62 @@
             // ---------- NAIL KITS DATASET (ARRAYS + OBJECTS) ----------
             const nailKits = [
                 { 
-                    name: "Dip Powder Starter", 
-                    desc: "8 colors + bond & seal – all-in-one", 
-                    price: 49.90, 
-                    icon: "fas fa-powder", 
+                    name: "Rose Dip Powder Kit", 
+                    desc: "6 romantic shades + bond & seal", 
+                    price: 54.90, 
+                    icon: "fas fa-rose", 
                     affiliateLink: "#",
                     category: "dip" 
                 },
                 { 
-                    name: "Gel X Extension Kit", 
-                    desc: "full cover tips, gel, lamp & tools", 
-                    price: 79.00, 
-                    icon: "fas fa-wand-magic", 
+                    name: "Gel X Pro Studio", 
+                    desc: "full cover tips, 4 gels, mini lamp", 
+                    price: 84.00, 
+                    icon: "fas fa-wand-sparkles", 
                     affiliateLink: "#",
                     category: "gel" 
                 },
                 { 
-                    name: "Press-on Pro Set", 
-                    desc: "48 reusable nails + glue & file", 
-                    price: 24.50, 
+                    name: "Press-on Party Edit", 
+                    desc: "48 luxury nails, glue & case", 
+                    price: 29.50, 
                     icon: "fas fa-star", 
                     affiliateLink: "#",
                     category: "press" 
                 },
                 { 
-                    name: "Polygel Everything Kit", 
-                    desc: "3 colors, slip solution, brush & forms", 
-                    price: 59.90, 
-                    icon: "fas fa-cubes", 
+                    name: "Polygel Fantasy", 
+                    desc: "3 colors, forms, brush & slip", 
+                    price: 62.90, 
+                    icon: "fas fa-crown", 
                     affiliateLink: "#",
                     category: "polygel" 
                 },
                 { 
-                    name: "Nail Art Stamping Kit", 
-                    desc: "3 plates, stamper, scraper & polish", 
-                    price: 32.30, 
-                    icon: "fas fa-stamp", 
+                    name: "Nail Art Stamp Master", 
+                    desc: "5 plates + scraper, 2 polishes", 
+                    price: 34.30, 
+                    icon: "fas fa-paintbrush", 
                     affiliateLink: "#",
                     category: "art" 
                 },
                 { 
-                    name: "Electric Nail Drill", 
-                    desc: "professional e-file + 6 bits", 
-                    price: 45.90, 
-                    icon: "fas fa-drill", 
+                    name: "Electric E-file Kit", 
+                    desc: "20k RPM, 8 bits + dust collector", 
+                    price: 69.90, 
+                    icon: "fas fa-bolt", 
                     affiliateLink: "#",
                     category: "tool" 
                 }
             ];
 
-            // Extra nail products for "all kits" page
+            // Extra nail items for full product page (more pinterest candy)
             const extraNailKits = [
-                { name: "Acrylic Beginner Kit", desc: "monomer powder & 5 brushes", price: 55.20, icon: "fas fa-paintbrush", affiliateLink: "#", category: "acrylic" },
-                { name: "UV/LED Lamp 48W", desc: "fast curing, auto sensor", price: 38.90, icon: "fas fa-lightbulb", affiliateLink: "#", category: "lamp" },
-                { name: "Nail dehydrator & primer", desc: "2-step adhesion duo", price: 14.40, icon: "fas fa-droplet", affiliateLink: "#", category: "prep" }
+                { name: "Acrylic Glitter Set", desc: "5 acrylic powders + monomer", price: 58.20, icon: "fas fa-sparkles", affiliateLink: "#", category: "acrylic" },
+                { name: "Portable Nail Lamp", desc: "48W LED, slim, auto sensor", price: 41.90, icon: "fas fa-sun", affiliateLink: "#", category: "lamp" },
+                { name: "Nail Prep Duo", desc: "dehydrator & primer, 15ml each", price: 16.40, icon: "fas fa-droplet", affiliateLink: "#", category: "prep" },
+                { name: "Chrome Powder Kit", desc: "6 chrome shades + no-wipe top", price: 27.90, icon: "fas fa-gem", affiliateLink: "#", category: "effect" },
+                { name: "Nail Forms (100pcs)", desc: "dual-form polygel / acrylic", price: 12.90, icon: "fas fa-sheet-plastic", affiliateLink: "#", category: "tool" }
             ];
 
             // combine for full products page
@@ -414,15 +455,15 @@
                             <div class="product-title">${p.name}</div>
                             <div class="product-desc">${p.desc}</div>
                             <div class="price">$${p.price.toFixed(2)} <small>· aff</small></div>
-                            <a href="${p.affiliateLink}" class="affiliate-btn" target="_blank" rel="sponsored">see deal <i class="fas fa-arrow-right"></i></a>
+                            <a href="${p.affiliateLink}" class="affiliate-btn" target="_blank" rel="sponsored">see on amazon <i class="fas fa-arrow-right"></i></a>
                         </div>
                     `;
                 });
                 container.innerHTML = html;
             }
 
-            // render home (first 4) & products (all)
-            renderGrid('home-product-grid', nailKits, 4);
+            // render home (first 5) & products (all)
+            renderGrid('home-product-grid', nailKits, 5);
             renderGrid('products-product-grid', allNailProducts);
 
             // ---------- INTERSECTION OBSERVER (reveal animation) ----------
@@ -432,7 +473,7 @@
                         entry.target.classList.add('reveal');
                     }
                 });
-            }, { threshold: 0.15, rootMargin: '20px' });
+            }, { threshold: 0.15, rootMargin: '25px' });
 
             function observeAllCards() {
                 const cards = document.querySelectorAll('.product-card');
@@ -442,7 +483,7 @@
             // initial observe
             observeAllCards();
 
-            // ---------- SIMPLE SPA NAVIGATION ----------
+            // ---------- SPA NAVIGATION ----------
             const navItems = document.querySelectorAll('.nav-item');
             const pages = document.querySelectorAll('.page');
 
@@ -453,16 +494,17 @@
 
                 // update nav active style
                 navItems.forEach(item => item.classList.remove('active'));
-                document.querySelector(`.nav-item[data-page="${pageId}"]`).classList.add('active');
+                const activeNav = document.querySelector(`.nav-item[data-page="${pageId}"]`);
+                if (activeNav) activeNav.classList.add('active');
 
-                // re-run observer after tab change (new cards might load)
+                // re-run observer after tab change and ensure reveal
                 setTimeout(() => {
                     observeAllCards();
-                    // manually reveal any cards already near viewport
+                    // force reveal for cards already in view
                     document.querySelectorAll('.product-card:not(.reveal)').forEach(c => {
-                        if (c.getBoundingClientRect().top < window.innerHeight - 50) c.classList.add('reveal');
+                        if (c.getBoundingClientRect().top < window.innerHeight - 60) c.classList.add('reveal');
                     });
-                }, 120);
+                }, 150);
             }
 
             navItems.forEach(item => {
@@ -474,28 +516,29 @@
                 });
             });
 
-            // home default
+            // start with home active (already default, but ensure)
             setActivePage('home');
 
-            // also trigger reveal on scroll for any late cards
+            // on scroll also reveal cards
             window.addEventListener('scroll', () => {
                 document.querySelectorAll('.product-card:not(.reveal)').forEach(c => {
-                    if (c.getBoundingClientRect().top < window.innerHeight - 50) c.classList.add('reveal');
+                    if (c.getBoundingClientRect().top < window.innerHeight - 60) c.classList.add('reveal');
                 });
             }, { passive: true });
 
-            // minor: if products were added after navigation, ensure observer catches them
-            // override renderGrid to call observeAllCards after insertion
+            // if any cards dynamically appear (like after render), observe them.
             const originalRender = renderGrid;
             window.renderGrid = function(...args) {
                 originalRender(...args);
                 observeAllCards();
             };
-            // but already rendered, just call again for safety (no double content)
+            // call again for any future (already called)
             observeAllCards();
+
+            // tiny extra: add pinterest-hover effect on logo
         })();
     </script>
-    <!-- small noscript friendly -->
+    <!-- fallback if noscript -->
     <noscript><style>.product-card{opacity:1;transform:none;}</style></noscript>
 </body>
 </html>
