@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savory Bites · food affiliate</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background: #fef7f0;
+            color: #2d2d2d;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* subtle animated gradient background for header / hero */
+        @keyframes softGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* navigation */
+        .navbar {
+            background: #ffffffdd;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.02);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ffe3d0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #c45d2b;
+            letter-spacing: -0.5px;
+        }
+        .logo i {
+            color: #e47b4a;
+            margin-right: 6px;
+            animation: tilt 3s infinite ease-in-out;
+        }
+        @keyframes tilt {
+            0%,100%{ transform: rotate(0deg); }
+            25%{ transform: rotate(12deg); }
+            75%{ transform: rotate(-6deg); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #4d3a2e;
+            transition: 0.2s;
+            font-size: 1.1rem;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            border-bottom-color: #c8815f;
+            color: #b34f23;
+        }
+
+        /* container */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        /* page title */
+        .page-header {
+            margin: 1.5rem 0 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .page-header h1 {
+            font-size: 2.6rem;
+            font-weight: 350;
+            color: #5e3c28;
+            border-left: 7px solid #f3a683;
+            padding-left: 1.5rem;
+        }
+        .page-header i {
+            font-size: 2.8rem;
+            color: #c97c5b;
+            opacity: 0.8;
+        }
+
+        /* product cards grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* card animation */
+        .product-card {
+            background: white;
+            border-radius: 32px 32px 28px 28px;
+            padding: 1.8rem 1.5rem 1.8rem;
+            box-shadow: 0 15px 30px -12px rgba(158, 89, 39, 0.15);
+            transition: all 0.25s ease;
+            border: 1px solid #ffefe3;
+            text-align: center;
+            opacity: 0; /* will be animated by IntersectionObserver + fadeIn */
+            transform: translateY(18px);
+            transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 30px 45px -10px #d9b6a0;
+            border-color: #fadbc8;
+        }
+
+        .product-card i.img-placeholder {
+            font-size: 4.2rem;
+            margin-bottom: 1.2rem;
+            color: #b3704d;
+            background: #fff1e8;
+            width: 100px;
+            height: 100px;
+            line-height: 100px !important;
+            border-radius: 50%;
+            align-self: center;
+            box-shadow: 0 6px 12px #f1d9ca;
+            transition: 0.2s;
+        }
+        .product-card:hover i.img-placeholder {
+            background: #ffdcc9;
+            color: #a75228;
+        }
+
+        .product-title {
+            font-weight: 650;
+            font-size: 1.5rem;
+            color: #2e1c12;
+            margin-bottom: 0.3rem;
+        }
+        .product-desc {
+            font-size: 0.95rem;
+            color: #7a5a48;
+            margin: 0.6rem 0 0.8rem;
+            flex: 1;
+        }
+        .price {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #b95f33;
+            margin: 0.6rem 0;
+        }
+        .price small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #a78e7c;
+        }
+        .affiliate-btn {
+            background: #fae2d4;
+            border: none;
+            border-radius: 60px;
+            padding: 0.9rem 1.5rem;
+            margin-top: 1rem;
+            font-weight: 600;
+            color: #7b442b;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid #eec7b2;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .affiliate-btn i {
+            transition: transform 0.2s;
+        }
+        .affiliate-btn:hover {
+            background: #f5cfbb;
+            gap: 12px;
+            border-color: #d89f81;
+        }
+        .affiliate-btn:hover i {
+            transform: translateX(4px);
+        }
+
+        /* fallback for non JS */
+        .no-js .product-card { opacity: 1; transform: none; }
+
+        /* about / contact pages */
+        .about-card, .contact-card {
+            background: white;
+            border-radius: 40px;
+            padding: 3rem;
+            box-shadow: 0 25px 45px -20px #c29981;
+            border: 1px solid #ffe2cf;
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .about-card i, .contact-card i {
+            font-size: 4rem;
+            color: #dc7f53;
+            margin-bottom: 1.5rem;
+        }
+        .about-card h2, .contact-card h2 {
+            font-size: 2.3rem;
+            font-weight: 350;
+            color: #3b2b21;
+        }
+        .about-card p {
+            font-size: 1.2rem;
+            color: #4f3f34;
+            margin: 2rem 0;
+        }
+        .contact-card .social-links a {
+            font-size: 2.5rem;
+            margin: 0 1.2rem;
+            color: #b97250;
+            transition: 0.2s;
+            display: inline-block;
+        }
+        .social-links a:hover {
+            transform: scale(1.2) rotate(4deg);
+            color: #a3461b;
+        }
+
+        /* footer */
+        footer {
+            background: #2b1e16;
+            color: #f0dad0;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* page visibility */
+        .page {
+            display: none;
+        }
+        .page.active-page {
+            display: block;
+        }
+
+        /* simple responsive */
+        @media (max-width: 700px) {
+            .navbar { flex-direction: column; gap: 0.8rem; }
+            .nav-links { gap: 1.5rem; }
+            .page-header h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- fixed navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-utensils"></i> SavoryBites
+        </div>
+        <div class="nav-links">
+            <a href="#" data-page="home" class="nav-item active"><i class="fas fa-home"></i> Home</a>
+            <a href="#" data-page="products" class="nav-item"><i class="fas fa-pizza-slice"></i> Products</a>
+            <a href="#" data-page="about" class="nav-item"><i class="fas fa-heart"></i> About</a>
+            <a href="#" data-page="contact" class="nav-item"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+    </nav>
+
+    <!-- all pages container -->
+    <div class="container">
+        <!-- HOME page -->
+        <section id="home" class="page active-page">
+            <div class="page-header">
+                <i class="fas fa-cookie-bite"></i>
+                <h1>handpicked kitchen gems</h1>
+            </div>
+            <!-- featured products (from javascript) will be injected here -->
+            <div id="home-product-grid" class="product-grid"></div>
+            <div style="text-align: center; margin-top: 3rem; font-style: italic; color: #aa826b;">
+                <i class="fas fa-arrow-down"></i> more in <strong>products</strong> tab
+            </div>
+        </section>
+
+        <!-- PRODUCTS page -->
+        <section id="products" class="page">
+            <div class="page-header">
+                <i class="fas fa-kitchen-set"></i>
+                <h1>all foodie essentials</h1>
+            </div>
+            <div id="products-product-grid" class="product-grid"></div>
+        </section>
+
+        <!-- ABOUT page -->
+        <section id="about" class="page">
+            <div class="about-card">
+                <i class="fas fa-seedling"></i>
+                <h2>simple food · honest affiliate</h2>
+                <p>We’re a tiny team of home cooks & pinterest storytellers. Every product we share is something we’d actually use — from ceramic knives to pour-over kettles. We earn a small commission if you purchase (at no extra cost), it helps us keep the oven on.</p>
+                <p style="font-size: 1rem;"><i class="fas fa-star" style="color:#e68a5e;"></i> <i class="fas fa-star" style="color:#e68a5e;"></i> <i class="fas fa-star" style="color:#e68a5e;"></i> <i class="fas fa-star" style="color:#e68a5e;"></i> <i class="fas fa-star-half-alt" style="color:#e68a5e;"></i>  Pinterest loved</p>
+            </div>
+        </section>
+
+        <!-- CONTACT page -->
+        <section id="contact" class="page">
+            <div class="contact-card">
+                <i class="fas fa-mug-hot"></i>
+                <h2>let's connect</h2>
+                <p>follow our food boards for daily drops & affiliate deals</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+                <p style="margin-top: 2rem;">📧 hello@savorybites.blog</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <i class="fas fa-copyright"></i> SavoryBites — pinterest affiliate love. (products are demo arrays)
+    </footer>
+
+    <script>
+        (function() {
+            // ---------- FOOD PRODUCT DATASET (ARRAYS + OBJECTS) ----------
+            const foodProducts = [
+                { 
+                    name: "Japanese Nori Set", 
+                    desc: "toasted seaweed sheets, premium grade", 
+                    price: 12.90, 
+                    icon: "fas fa-sea", 
+                    affiliateLink: "#",
+                    category: "pantry" 
+                },
+                { 
+                    name: "Olive Wood Board", 
+                    desc: "hand-carved serving board for cheese", 
+                    price: 39.00, 
+                    icon: "fas fa-tree", 
+                    affiliateLink: "#",
+                    category: "kitchen" 
+                },
+                { 
+                    name: "Saffron Threads", 
+                    desc: "Spanish premium, 1g tin", 
+                    price: 18.50, 
+                    icon: "fas fa-mortar-pestle", 
+                    affiliateLink: "#",
+                    category: "spices" 
+                },
+                { 
+                    name: "Copper Measure Cup", 
+                    desc: "solid copper, 1-cup / 250ml", 
+                    price: 27.90, 
+                    icon: "fas fa-mug-saucer", 
+                    affiliateLink: "#",
+                    category: "tools" 
+                },
+                { 
+                    name: "Truffle Zest Tool", 
+                    desc: "stainless shaver for truffles/parmesan", 
+                    price: 22.30, 
+                    icon: "fas fa-grip", 
+                    affiliateLink: "#",
+                    category: "gadget" 
+                },
+                { 
+                    name: "Ceramic Knife Set", 
+                    desc: "3-piece, pearl white (ultra sharp)", 
+                    price: 69.90, 
+                    icon: "fas fa-knife-kitchen", 
+                    affiliateLink: "#",
+                    category: "knives" 
+                }
+            ];
+
+            // optional extra items for products page (more variety)
+            const extraProducts = [
+                { name: "Maple Syrup Jug", desc: "vintage glass with cork", price: 15.20, icon: "fas fa-jug", affiliateLink: "#", category: "drink" },
+                { name: "Sourdough Starter", desc: "dehydrated heirloom culture", price: 11.90, icon: "fas fa-wheat-awn", affiliateLink: "#", category: "baking" },
+                { name: "Beeswax Wraps", desc: "set of 3 reusable food wraps", price: 17.40, icon: "fas fa-bee", affiliateLink: "#", category: "eco" }
+            ];
+
+            // combine for products page (show all)
+            const allProducts = foodProducts.concat(extraProducts);
+
+            // ---------- HELPER: render cards into a grid  ----------
+            function renderGrid(containerId, productArray, limit = 0) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                let html = '';
+                const items = (limit > 0) ? productArray.slice(0, limit) : productArray;
+                items.forEach(p => {
+                    html += `
+                        <div class="product-card">
+                            <i class="${p.icon} img-placeholder"></i>
+                            <div class="product-title">${p.name}</div>
+                            <div class="product-desc">${p.desc}</div>
+                            <div class="price">$${p.price.toFixed(2)} <small>· aff</small></div>
+                            <a href="${p.affiliateLink}" class="affiliate-btn" target="_blank" rel="sponsored">check price <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+
+            // render home (first 3) & products (all)
+            renderGrid('home-product-grid', foodProducts, 3);
+            renderGrid('products-product-grid', allProducts);
+
+            // ---------- INTERSECTION OBSERVER (reveal animation) ----------
+            const cards = document.querySelectorAll('.product-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal');
+                        // optional keep observing to handle dynamic if any
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '20px' });
+            cards.forEach(c => observer.observe(c));
+
+            // ---------- SIMPLE SPA NAVIGATION ----------
+            const navItems = document.querySelectorAll('.nav-item');
+            const pages = document.querySelectorAll('.page');
+
+            function setActivePage(pageId) {
+                pages.forEach(p => p.classList.remove('active-page'));
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) targetPage.classList.add('active-page');
+
+                // update nav active style
+                navItems.forEach(item => item.classList.remove('active'));
+                document.querySelector(`.nav-item[data-page="${pageId}"]`).classList.add('active');
+
+                // re-run observer for new cards (after tab change)
+                setTimeout(() => {
+                    const newCards = document.querySelectorAll('.product-card');
+                    newCards.forEach(c => { if (c.getBoundingClientRect().top < window.innerHeight) c.classList.add('reveal'); });
+                }, 100);
+            }
+
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = item.getAttribute('data-page');
+                    if (page) setActivePage(page);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
+            // optionally, initial home reveal
+            window.addEventListener('load', () => {
+                setActivePage('home');
+                // force home cards to reveal after tiny delay (they are present)
+                setTimeout(() => {
+                    document.querySelectorAll('#home .product-card').forEach(c => c.classList.add('reveal'));
+                }, 150);
+            });
+
+            // also run observer when new grids added (dynamic but fine)
+            // we can observe again after render – but we already set for all .product-card after each render.
+            // but after products page rendered, cards exist, but observer added only on load? 
+            // re-run for all cards on each navigation (use MutationObserver light)
+            const observeAllCards = () => {
+                const allCurrentCards = document.querySelectorAll('.product-card');
+                allCurrentCards.forEach(c => observer.observe(c));
+            };
+            // after rendering, observe new cards
+            // we can call observeAllCards after render. modify renderGrid to observe
+            const originalRender = renderGrid;
+            window.renderGrid = function(...args) {
+                originalRender(...args);
+                observeAllCards();
+            };
+            // but we already called renderGrid, so call again to observe new
+            observeAllCards();
+
+            // minor fallback: ensure any card already visible gets reveal class
+            window.addEventListener('scroll', () => {
+                document.querySelectorAll('.product-card:not(.reveal)').forEach(c => {
+                    if (c.getBoundingClientRect().top < window.innerHeight-50) c.classList.add('reveal');
+                });
+            }, { passive: true });
+            // trigger once
+            setTimeout(() => {
+                document.querySelectorAll('.product-card:not(.reveal)').forEach(c => {
+                    if (c.getBoundingClientRect().top < window.innerHeight-50) c.classList.add('reveal');
+                });
+            }, 300);
+        })();
+    </script>
+    <!-- small noscript friendly -->
+    <noscript><style>.product-card{opacity:1;transform:none;}</style></noscript>
+</body>
+</html>
